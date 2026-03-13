@@ -4,7 +4,7 @@ import config from "../../../config";
 import prisma from "../../shared/prisma";
 
 const createPatient = async (payload: UserInterface) => {
-    
+
     const hashedPassword = await bcrypt.hash(payload.password, Number(config.bcrypt_salt))
 
     const result = await prisma.$transaction(async (ts) => {
@@ -12,6 +12,9 @@ const createPatient = async (payload: UserInterface) => {
             data: {
                 email: payload.email,
                 password: hashedPassword
+            },
+            omit: {
+                password: true
             }
         })
 
