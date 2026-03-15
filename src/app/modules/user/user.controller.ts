@@ -2,13 +2,10 @@ import { Request, Response } from "express";
 import catchAsync from "../../shared/catchAsync";
 import userServices from "./user.service";
 import sendResponse from "../../shared/sendResponse";
+import { uploadToCloudinary } from "../../utils/fileUpload";
 
 const createPatient = catchAsync(async (req: Request, res: Response) => {
-    // const result = await userServices.createPatient(req.body);
-    console.log('user-controllter: file checking', req?.file);
-    console.log('user-controllter: text', JSON.parse(req?.body?.data));
-
-    res.send({file: req.file, data: JSON.parse(req.body.data)})
+    // const result = await userServices.createPatient(req.body, req.file);
 
     // sendResponse(res, {
     //     success: true,
@@ -16,6 +13,9 @@ const createPatient = catchAsync(async (req: Request, res: Response) => {
     //     data: result,
     //     message: "Patient is created successfully."
     // })
+    const result = await uploadToCloudinary()
+
+    res.send({'image saved': result})
 })
 
 const userControllers = { createPatient }

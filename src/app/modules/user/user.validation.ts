@@ -1,10 +1,10 @@
 import z, { email } from "zod";
 
 const userCreationValidation = z.object({
-    password: z.string({ error: "Password is a required field." }),
+    password: z.string(),
     patient: z.object({
-        name: z.string({ error: "Name must be given." }),
-        email: z.email({ error: "Email must be provided." }),
+        name: z.string(),
+        email: z.email(),
         address: z.string().optional()
     })
 })

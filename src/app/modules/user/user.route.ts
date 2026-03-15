@@ -1,19 +1,21 @@
-import express, { NextFunction, Request, Response } from "express";
-import userControllers from "./user.controller";
+import { NextFunction, Request, Response, Router } from "express";
 import { uploadMulter } from "../../utils/fileUpload";
-import validateSchema from "../../middlewares/validateRequest";
+import userControllers from "./user.controller";
 import userValidation from "./user.validation";
 
-const userRouter = express.Router();
+const userRouter = Router();
 
 userRouter.post(
-    '/create-patient',
-    uploadMulter.single('file'),
+    "/create-patient",
+    uploadMulter.single("file"),
     (req: Request, res: Response, next: NextFunction) => {
-        req.body = userValidation.userCreationValidation.parse(req.body.data);
-
-        return userControllers.createPatient(req, res, next)
+        try {
+            req.body = userValidation.userCreationValidation.parse(JSON.parse(req.body.data))
+            next()
+        } catch (error) {
+            next(error)
+        }
     },
-)
+    userControllers.createPatient)
 
 export default userRouter;

@@ -3,7 +3,7 @@ import { UserInterface } from "./user.interface";
 import config from "../../../config";
 import prisma from "../../shared/prisma";
 
-const createPatient = async (payload: UserInterface) => {
+const createPatient = async (payload: UserInterface, file?: Express.Multer.File) => {
 
     const hashedPassword = await bcrypt.hash(payload.password, Number(config.bcrypt_salt))
 
