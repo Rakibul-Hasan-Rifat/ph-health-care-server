@@ -1,13 +1,13 @@
-import multer from "multer";
 import path from "path";
-import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
+import multer from "multer";
 import config from "../../config";
+import { v2 as cloudinary } from 'cloudinary';
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, path.join(process.cwd(), "/uploads"))
   },
-  filename(req, file, callback) {
+  filename: function (req, file, callback) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     callback(null, `${file.fieldname}-${Math.random() * 1E9}`)
   },
@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
 export const uploadMulter = multer({ storage })
 
 
-export const uploadToCloudinary = async () => {
+export const uploadToCloudinary = async (file: Express.Multer.File) => {
 
   // cloudinary configuration
   cloudinary.config({
@@ -26,18 +26,17 @@ export const uploadToCloudinary = async () => {
   });
 
 
+
   // Upload an image
-  const uploadResult: UploadApiResponse = await cloudinary.uploader
+  const uploadResult = await cloudinary.uploader
     .upload(
-      path.join(process.cwd(), "/uploads/file-535289297.53310007"), {
-      public_id: 'man',
+      file.path, {
+      public_id: file.filename,
     }
     )
     .catch((error) => {
       console.log(error);
     });
 
-
-  console.log(uploadResult);
-  return uploadResult.secure_url
+  return uploadResult?.url || ''
 }

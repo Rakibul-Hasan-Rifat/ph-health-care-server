@@ -1,16 +1,17 @@
-import z, { email } from "zod";
+import z from "zod";
 
-const userCreationValidation = z.object({
+const createUserZodSchema = z.object({
     password: z.string(),
     patient: z.object({
         name: z.string(),
         email: z.email(),
+        contactNumber: z.string(),
         address: z.string().optional()
     })
 })
 
-const userValidation = {
-    userCreationValidation
+const userZodSchema = {
+    createUserZodSchema
 }
 
-export default userValidation;
+export default userZodSchema;

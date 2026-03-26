@@ -1,8 +1,10 @@
 interface UserInterface {
-    name: string,
-    email: string,
     password: string,
-    contactNumber: string
+    patient: {
+        name: string,
+        email: string,
+        contactNumber: string
+    }
 }
 
 export { UserInterface }

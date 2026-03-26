@@ -5,17 +5,14 @@ import sendResponse from "../../shared/sendResponse";
 import { uploadToCloudinary } from "../../utils/fileUpload";
 
 const createPatient = catchAsync(async (req: Request, res: Response) => {
-    // const result = await userServices.createPatient(req.body, req.file);
-
-    // sendResponse(res, {
-    //     success: true,
-    //     statusCode: 201,
-    //     data: result,
-    //     message: "Patient is created successfully."
-    // })
-    const result = await uploadToCloudinary()
-
-    res.send({'image saved': result})
+    console.log("user controller", req.body);
+    const result = userServices.createPatient(req.body)
+    sendResponse(res, {
+        success: true,
+        statusCode: 201,
+        message: "User as patient is registered successfully!",
+        data: result
+    })
 })
 
 const userControllers = { createPatient }

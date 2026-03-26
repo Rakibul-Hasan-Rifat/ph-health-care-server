@@ -1,10 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodObject } from "zod";
 
-const validateSchema = async (schema: ZodObject) => async (req: Request, res: Response, next: NextFunction) => {
+const validateSchema = (zodSchema: ZodObject) => async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const validatedPayload = await schema.parseAsync(req.body)
-        console.log('validate schema', validatedPayload);
+        req.body = await zodSchema.parseAsync(JSON.parse(req.body.data))
         next();
     } catch (error) {
         next(error)
