@@ -14,7 +14,8 @@ const createPatient = catchAsync(async (req: Request, res: Response) => {
 })
 
 const createDoctor = catchAsync(async (req: Request, res: Response) => {
-    const result = userServices.createDoctor(req.body)
+    const result = await userServices.createDoctor(req.body)
+    console.log(result);
     sendResponse(res, {
         success: true,
         statusCode: 201,

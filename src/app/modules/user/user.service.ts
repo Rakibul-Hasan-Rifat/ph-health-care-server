@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import config from "../../../config";
+import envConfig from "../../../config";
 import prisma from "../../shared/prisma";
 import { DoctorInterface, PatientInterface } from "./user.interface";
 
@@ -28,7 +29,9 @@ const createPatient = async (payload: PatientInterface) => {
     return result;
 }
 
-const createDoctor = (payload: DoctorInterface) => {
+const createDoctor = async (payload: DoctorInterface) => {
+    const hashedPassword = await bcrypt.hash(payload.password, Number(envConfig.bcrypt_salt))
+    payload.password = hashedPassword
     console.log(payload);
     return payload
 }
