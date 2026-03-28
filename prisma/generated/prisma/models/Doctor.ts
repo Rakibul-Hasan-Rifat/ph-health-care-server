@@ -41,7 +41,7 @@ export type DoctorMinAggregateOutputType = {
   email: string | null
   name: string | null
   profilePhoto: string | null
-  contactNumber: $Enums.Status | null
+  contactNumber: string | null
   address: string | null
   registrationNumber: string | null
   experience: number | null
@@ -60,7 +60,7 @@ export type DoctorMaxAggregateOutputType = {
   email: string | null
   name: string | null
   profilePhoto: string | null
-  contactNumber: $Enums.Status | null
+  contactNumber: string | null
   address: string | null
   registrationNumber: string | null
   experience: number | null
@@ -254,7 +254,7 @@ export type DoctorGroupByOutputType = {
   email: string
   name: string
   profilePhoto: string | null
-  contactNumber: $Enums.Status
+  contactNumber: string
   address: string
   registrationNumber: string
   experience: number
@@ -296,7 +296,7 @@ export type DoctorWhereInput = {
   email?: Prisma.StringFilter<"Doctor"> | string
   name?: Prisma.StringFilter<"Doctor"> | string
   profilePhoto?: Prisma.StringNullableFilter<"Doctor"> | string | null
-  contactNumber?: Prisma.EnumStatusFilter<"Doctor"> | $Enums.Status
+  contactNumber?: Prisma.StringFilter<"Doctor"> | string
   address?: Prisma.StringFilter<"Doctor"> | string
   registrationNumber?: Prisma.StringFilter<"Doctor"> | string
   experience?: Prisma.IntFilter<"Doctor"> | number
@@ -339,7 +339,7 @@ export type DoctorWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.DoctorWhereInput | Prisma.DoctorWhereInput[]
   name?: Prisma.StringFilter<"Doctor"> | string
   profilePhoto?: Prisma.StringNullableFilter<"Doctor"> | string | null
-  contactNumber?: Prisma.EnumStatusFilter<"Doctor"> | $Enums.Status
+  contactNumber?: Prisma.StringFilter<"Doctor"> | string
   address?: Prisma.StringFilter<"Doctor"> | string
   registrationNumber?: Prisma.StringFilter<"Doctor"> | string
   experience?: Prisma.IntFilter<"Doctor"> | number
@@ -386,7 +386,7 @@ export type DoctorScalarWhereWithAggregatesInput = {
   email?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   name?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   profilePhoto?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
-  contactNumber?: Prisma.EnumStatusWithAggregatesFilter<"Doctor"> | $Enums.Status
+  contactNumber?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   address?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   registrationNumber?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   experience?: Prisma.IntWithAggregatesFilter<"Doctor"> | number
@@ -404,7 +404,7 @@ export type DoctorCreateInput = {
   id?: string
   name: string
   profilePhoto?: string | null
-  contactNumber: $Enums.Status
+  contactNumber: string
   address: string
   registrationNumber: string
   experience?: number
@@ -424,7 +424,7 @@ export type DoctorUncheckedCreateInput = {
   email: string
   name: string
   profilePhoto?: string | null
-  contactNumber: $Enums.Status
+  contactNumber: string
   address: string
   registrationNumber: string
   experience?: number
@@ -442,7 +442,7 @@ export type DoctorUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactNumber?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -462,7 +462,7 @@ export type DoctorUncheckedUpdateInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactNumber?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -481,7 +481,7 @@ export type DoctorCreateManyInput = {
   email: string
   name: string
   profilePhoto?: string | null
-  contactNumber: $Enums.Status
+  contactNumber: string
   address: string
   registrationNumber: string
   experience?: number
@@ -499,7 +499,7 @@ export type DoctorUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactNumber?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -518,7 +518,7 @@ export type DoctorUncheckedUpdateManyInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactNumber?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -652,7 +652,7 @@ export type DoctorCreateWithoutUserInput = {
   id?: string
   name: string
   profilePhoto?: string | null
-  contactNumber: $Enums.Status
+  contactNumber: string
   address: string
   registrationNumber: string
   experience?: number
@@ -670,7 +670,7 @@ export type DoctorUncheckedCreateWithoutUserInput = {
   id?: string
   name: string
   profilePhoto?: string | null
-  contactNumber: $Enums.Status
+  contactNumber: string
   address: string
   registrationNumber: string
   experience?: number
@@ -704,7 +704,7 @@ export type DoctorUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactNumber?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -722,7 +722,7 @@ export type DoctorUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contactNumber?: Prisma.EnumStatusFieldUpdateOperationsInput | $Enums.Status
+  contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
   address?: Prisma.StringFieldUpdateOperationsInput | string
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
@@ -838,7 +838,7 @@ export type $DoctorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     email: string
     name: string
     profilePhoto: string | null
-    contactNumber: $Enums.Status
+    contactNumber: string
     address: string
     registrationNumber: string
     experience: number
@@ -1278,7 +1278,7 @@ export interface DoctorFieldRefs {
   readonly email: Prisma.FieldRef<"Doctor", 'String'>
   readonly name: Prisma.FieldRef<"Doctor", 'String'>
   readonly profilePhoto: Prisma.FieldRef<"Doctor", 'String'>
-  readonly contactNumber: Prisma.FieldRef<"Doctor", 'Status'>
+  readonly contactNumber: Prisma.FieldRef<"Doctor", 'String'>
   readonly address: Prisma.FieldRef<"Doctor", 'String'>
   readonly registrationNumber: Prisma.FieldRef<"Doctor", 'String'>
   readonly experience: Prisma.FieldRef<"Doctor", 'Int'>
