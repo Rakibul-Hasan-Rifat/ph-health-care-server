@@ -15,14 +15,15 @@ const createDoctorZodSchema = z.object({
     doctor: z.object({
         name: z.string(),
         email: z.email(),
+        role: z.string(),
+        gender: z.string(),
+        designation: z.string(),
         contactNumber: z.string(),
+        qualification: z.string(),
+        appointmentFee: z.number(),
         address: z.string().optional(),
         registrationNumber: z.string(),
-        gender: z.string(),
-        appointmentFee: z.number(),
-        qualification: z.string(),
-        currentWorkingPlace: z.string(),
-        designation: z.string()
+        currentWorkingPlace: z.string()
     })
 })
 

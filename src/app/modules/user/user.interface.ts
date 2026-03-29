@@ -22,11 +22,13 @@ interface DoctorInterface {
     password: string,
     doctor: {
         name: string,
+        role: string,
         email: string,
         gender: string,
         address?: string,
         experience: number,
         designation: string,
+        profilePhoto?: string,
         contactNumber: string,
         qualification: string,
         appointmentFee: number,

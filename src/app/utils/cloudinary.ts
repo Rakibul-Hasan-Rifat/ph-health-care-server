@@ -17,7 +17,8 @@ export const cloudinaryUploader = async (file: Express.Multer.File) => {
         })
         return result.secure_url || "";
     } catch (error) {
-        console.log(error);
+        console.log('Cloudinary Upload Error:', error);
+        throw error;
     }
 
 }

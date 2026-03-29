@@ -255,7 +255,7 @@ export type DoctorGroupByOutputType = {
   name: string
   profilePhoto: string | null
   contactNumber: string
-  address: string
+  address: string | null
   registrationNumber: string
   experience: number
   gender: $Enums.Gender | null
@@ -297,7 +297,7 @@ export type DoctorWhereInput = {
   name?: Prisma.StringFilter<"Doctor"> | string
   profilePhoto?: Prisma.StringNullableFilter<"Doctor"> | string | null
   contactNumber?: Prisma.StringFilter<"Doctor"> | string
-  address?: Prisma.StringFilter<"Doctor"> | string
+  address?: Prisma.StringNullableFilter<"Doctor"> | string | null
   registrationNumber?: Prisma.StringFilter<"Doctor"> | string
   experience?: Prisma.IntFilter<"Doctor"> | number
   gender?: Prisma.EnumGenderNullableFilter<"Doctor"> | $Enums.Gender | null
@@ -317,7 +317,7 @@ export type DoctorOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   contactNumber?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
   registrationNumber?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -340,7 +340,7 @@ export type DoctorWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Doctor"> | string
   profilePhoto?: Prisma.StringNullableFilter<"Doctor"> | string | null
   contactNumber?: Prisma.StringFilter<"Doctor"> | string
-  address?: Prisma.StringFilter<"Doctor"> | string
+  address?: Prisma.StringNullableFilter<"Doctor"> | string | null
   registrationNumber?: Prisma.StringFilter<"Doctor"> | string
   experience?: Prisma.IntFilter<"Doctor"> | number
   gender?: Prisma.EnumGenderNullableFilter<"Doctor"> | $Enums.Gender | null
@@ -360,7 +360,7 @@ export type DoctorOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   profilePhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   contactNumber?: Prisma.SortOrder
-  address?: Prisma.SortOrder
+  address?: Prisma.SortOrderInput | Prisma.SortOrder
   registrationNumber?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   gender?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -387,7 +387,7 @@ export type DoctorScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   profilePhoto?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   contactNumber?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
-  address?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
+  address?: Prisma.StringNullableWithAggregatesFilter<"Doctor"> | string | null
   registrationNumber?: Prisma.StringWithAggregatesFilter<"Doctor"> | string
   experience?: Prisma.IntWithAggregatesFilter<"Doctor"> | number
   gender?: Prisma.EnumGenderNullableWithAggregatesFilter<"Doctor"> | $Enums.Gender | null
@@ -405,7 +405,7 @@ export type DoctorCreateInput = {
   name: string
   profilePhoto?: string | null
   contactNumber: string
-  address: string
+  address?: string | null
   registrationNumber: string
   experience?: number
   gender?: $Enums.Gender | null
@@ -425,7 +425,7 @@ export type DoctorUncheckedCreateInput = {
   name: string
   profilePhoto?: string | null
   contactNumber: string
-  address: string
+  address?: string | null
   registrationNumber: string
   experience?: number
   gender?: $Enums.Gender | null
@@ -443,7 +443,7 @@ export type DoctorUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -463,7 +463,7 @@ export type DoctorUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -482,7 +482,7 @@ export type DoctorCreateManyInput = {
   name: string
   profilePhoto?: string | null
   contactNumber: string
-  address: string
+  address?: string | null
   registrationNumber: string
   experience?: number
   gender?: $Enums.Gender | null
@@ -500,7 +500,7 @@ export type DoctorUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -519,7 +519,7 @@ export type DoctorUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -653,7 +653,7 @@ export type DoctorCreateWithoutUserInput = {
   name: string
   profilePhoto?: string | null
   contactNumber: string
-  address: string
+  address?: string | null
   registrationNumber: string
   experience?: number
   gender?: $Enums.Gender | null
@@ -671,7 +671,7 @@ export type DoctorUncheckedCreateWithoutUserInput = {
   name: string
   profilePhoto?: string | null
   contactNumber: string
-  address: string
+  address?: string | null
   registrationNumber: string
   experience?: number
   gender?: $Enums.Gender | null
@@ -705,7 +705,7 @@ export type DoctorUpdateWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -723,7 +723,7 @@ export type DoctorUncheckedUpdateWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   profilePhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   contactNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.StringFieldUpdateOperationsInput | string
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   registrationNumber?: Prisma.StringFieldUpdateOperationsInput | string
   experience?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
@@ -839,7 +839,7 @@ export type $DoctorPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     name: string
     profilePhoto: string | null
     contactNumber: string
-    address: string
+    address: string | null
     registrationNumber: string
     experience: number
     gender: $Enums.Gender | null
