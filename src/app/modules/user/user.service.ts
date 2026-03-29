@@ -2,9 +2,8 @@ import bcrypt from "bcryptjs";
 import config from "../../../config";
 import envConfig from "../../../config";
 import prisma from "../../shared/prisma";
-import { DoctorInterface, PatientInterface } from "./user.interface";
 import { Gender, UserRole } from "../../../../prisma/generated/prisma/enums";
-import app from './../../../app';
+import { AdminInterface, DoctorInterface, PatientInterface } from "./user.interface";
 
 const createPatient = async (payload: PatientInterface) => {
 
@@ -34,7 +33,7 @@ const createPatient = async (payload: PatientInterface) => {
 const createDoctor = async (payload: DoctorInterface) => {
     const hashedPassword = await bcrypt.hash(payload.password, Number(envConfig.bcrypt_salt))
     const result = await prisma.$transaction(async (ts) => {
-        
+
         const userCreationResult = await ts.user.create({
             data: {
                 email: payload.doctor.email,
@@ -69,6 +68,36 @@ const createDoctor = async (payload: DoctorInterface) => {
     return result;
 }
 
-const userServices = { createPatient, createDoctor }
+const createAdmin = async (payload: AdminInterface) => {
+    const hashedPassword = await bcrypt.hash(payload.password, Number(envConfig.bcrypt_salt))
+
+    console.log({ ...payload, password: hashedPassword });
+
+    const result = await prisma.$transaction(async (ts) => {
+        const userCreationResult = await ts.user.create({
+            data: {
+                email: payload.admin.email,
+                password: hashedPassword,
+                role: UserRole.ADMIN
+            },
+            omit: {
+                password: true
+            }
+        })
+        const adminCreationResult = await ts.admin.create({
+            data: {
+                name: payload.admin.name,
+                email: payload.admin.email,
+                address: payload.admin.address,
+                profilePhoto: payload.admin.profilePhoto,
+                contactNumber: payload.admin.contactNumber
+            }
+        })
+        return { user: userCreationResult, admin: adminCreationResult }
+    })
+    return result;
+}
+
+const userServices = { createPatient, createDoctor, createAdmin }
 
 export default userServices;

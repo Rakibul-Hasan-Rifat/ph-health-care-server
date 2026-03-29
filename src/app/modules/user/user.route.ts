@@ -21,8 +21,16 @@ userRouter.post(
     "/create-doctor",
     multerUploader.single("file"),
     validateSchema(userZodSchema.createDoctorZodSchema),
-    imageUploader(),
+    imageUploader("doctor"),
     userControllers.createDoctor
+)
+
+userRouter.post(
+    "/create-admin",
+    multerUploader.single("file"),
+    validateSchema(userZodSchema.createAdminZodSchema),
+    imageUploader("admin"),
+    userControllers.createAdmin
 )
 
 export default userRouter;

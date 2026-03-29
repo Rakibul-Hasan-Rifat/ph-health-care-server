@@ -27,9 +27,21 @@ const createDoctorZodSchema = z.object({
     })
 })
 
+const createAdminZodSchema = z.object({
+    password: z.string(),
+    admin: z.object({
+        name: z.string(),
+        role: z.string(),
+        email: z.email(),
+        contactNumber: z.string(),
+        address: z.string().optional()
+    })
+})
+
 const userZodSchema = {
-    createPatientZodSchema,
-    createDoctorZodSchema
+    createAdminZodSchema,
+    createDoctorZodSchema,
+    createPatientZodSchema
 }
 
 export default userZodSchema;

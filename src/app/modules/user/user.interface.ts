@@ -7,17 +7,6 @@ interface PatientInterface {
     }
 }
 
-//   profilePhoto        String?
-//   contactNumber       String
-//   address             String
-//   registrationNumber  String
-//   experience          Int      @default(0)
-//   gender              Gender?
-//   appointmentFee      Int
-//   qualification       String
-//   currentWorkingPlace String
-//   designation         String
-
 interface DoctorInterface {
     password: string,
     doctor: {
@@ -37,4 +26,15 @@ interface DoctorInterface {
     }
 }
 
-export { PatientInterface, DoctorInterface }
+interface AdminInterface {
+    password: string,
+    admin: {
+        name: string,
+        email: string,
+        address?: string,
+        profilePhoto?: string,
+        contactNumber: string,
+    }
+}
+
+export { PatientInterface, DoctorInterface, AdminInterface }
