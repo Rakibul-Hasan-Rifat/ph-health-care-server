@@ -9,6 +9,19 @@ import { uploadImageToCloudinary } from "../../middlewares/uploadImage";
 
 const userRouter = Router();
 
+// Get all users route
+userRouter.get("/", userControllers.getAllUsers)
+
+// Get all doctors route
+userRouter.get("/doctors", userControllers.getAllDoctors)
+
+// Get all patients route
+userRouter.get("/patients", userControllers.getAllPatients)
+
+// Get all admins route
+userRouter.get("/admins", userControllers.getAllAdmins)
+
+// Create patient route
 userRouter.post(
     "/create-patient",
     uploadMulter.single("file"),
@@ -17,6 +30,7 @@ userRouter.post(
     userControllers.createPatient
 )
 
+// Create doctor route
 userRouter.post(
     "/create-doctor",
     multerUploader.single("file"),
@@ -25,6 +39,7 @@ userRouter.post(
     userControllers.createDoctor
 )
 
+// Create admin route
 userRouter.post(
     "/create-admin",
     multerUploader.single("file"),
