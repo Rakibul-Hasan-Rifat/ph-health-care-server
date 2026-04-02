@@ -2,44 +2,72 @@ import bcrypt from "bcryptjs";
 import config from "../../../config";
 import envConfig from "../../../config";
 import prisma from "../../shared/prisma";
+import { searchableFields } from "./user.constant";
+import calculatePagination from "../../utils/pagination";
+import { Prisma } from "../../../../prisma/generated/prisma/client";
 import { Gender, UserRole } from "../../../../prisma/generated/prisma/enums";
 import { AdminInterface, DoctorInterface, PatientInterface } from "./user.interface";
 
-// Get all users service
-const getAllUsers = async ({ page, limit, search, sortBy, sortOrder }: { page?: number, limit?: number, search?: string, sortBy?: string, sortOrder?: string }) => {
+type TOptions = {
+    page?: number,
+    limit?: number,
+    sortBy?: string,
+    sortOrder?: 'asc' | 'desc',
+}
 
-    page = page || 1;
-    limit = limit || 10;
-    search = search || "";
-    sortBy = sortBy || "createdAt";
-    sortOrder = sortOrder || "desc";
+type TFilters = {}
+
+// Get all users service
+const getAllUsers = async (
+    { options, filters }: { options: TOptions, filters: Record<string, unknown> }
+) => {
+
+    const { page, limit: take, skip, sortBy, sortOrder } = calculatePagination(options)
+    const { searchTerm, ...filtersData } = filters;
+
+    let andConditions: Prisma.UserWhereInput[] = [];
+
+    if (searchTerm) {
+        andConditions.push({
+            OR: searchableFields.map(field => ({
+                [field]: {
+                    contains: searchTerm
+                }
+            }))
+        })
+    }
+
+    if (Object.keys(filtersData).length > 0) {
+        andConditions.push({
+            AND: Object.keys(filtersData).map(key => ({
+                [key]: {
+                    equals: filtersData[key]
+                }
+            }))
+        })
+    }
+
+    const where: Prisma.UserWhereInput = andConditions ? { AND: andConditions } : {}
 
     const response = await prisma.user.findMany({
-        where: {
-            email: {
-                contains: search,
-                mode: "insensitive"
-            }
-        },
-        select: {
-            id: true,
-            email: true,
-            role: true,
-            doctor: {
-                select: { name: true, email: true, address: true }
-            },
-            patient: {
-                select: { name: true, email: true, contactNumber: true }
-            },
-            admin: {
-                select: { name: true, email: true, address: true }
-            }
-        },
-        take: limit,
-        skip: (page - 1) * limit,
-        orderBy: { [sortBy]: sortOrder }
+        where,
+        skip,
+        take,
+        orderBy: {
+            [sortBy]: sortOrder
+        }
     })
-    return response;
+
+    const total = await prisma.user.count({ where })
+
+    return {
+        data: response,
+        meta: {
+            page,
+            limit: take,
+            total
+        }
+    };
 }
 
 // Get all doctors service

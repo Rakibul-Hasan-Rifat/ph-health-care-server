@@ -4,6 +4,6 @@ import config from "../../config";
 
 const adapter = new PrismaPg({ connectionString: config.database_url })
 
-const prisma = new PrismaClient({ adapter })
+const prisma = new PrismaClient({ adapter, errorFormat: "pretty" })
 
 export default prisma;

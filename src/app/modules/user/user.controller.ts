@@ -2,21 +2,21 @@ import userServices from "./user.service";
 import { Request, Response } from "express";
 import catchAsync from "../../shared/catchAsync";
 import sendResponse from "../../shared/sendResponse";
+import pickFields from "../../utils/pick";
 
 // Get all users controller
 const getAllUsers = catchAsync(async (req: Request, res: Response) => {
-    const result = await userServices.getAllUsers({
-        page: Number(req.query.page),
-        limit: Number(req.query.limit),
-        search: req.query.search as string,
-        sortBy: req.query.sortBy as string,
-        sortOrder: req.query.sortOrder as string
-    })
+
+    const filters = pickFields(req.query, ['searchTerm', 'status', 'role', 'email'])
+    const options = pickFields(req.query, ['page', 'limit', 'skip', 'sortBy', 'sortOrder'])
+
+    const result = await userServices.getAllUsers({ filters, options })
     sendResponse(res, {
         success: true,
         statusCode: 200,
         message: "Users retrieved successfully!",
-        data: result
+        data: result.data,
+        meta: result.meta
     })
 })
 
