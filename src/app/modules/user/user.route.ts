@@ -2,15 +2,21 @@ import { Router } from "express";
 import userZodSchema from "./user.validation";
 import userControllers from "./user.controller";
 import { multerUploader } from "../../utils/multer";
+import authorize from "../../middlewares/authorize";
 import { uploadMulter } from "../../utils/fileUpload";
 import imageUploader from "../../middlewares/imageUploader";
 import validateSchema from "../../middlewares/validateRequest";
+import { UserRole } from "../../../../prisma/generated/prisma/enums";
 import { uploadImageToCloudinary } from "../../middlewares/uploadImage";
 
 const userRouter = Router();
 
 // Get all users route
-userRouter.get("/", userControllers.getAllUsers)
+userRouter.get(
+    "/",
+    authorize(UserRole.ADMIN, UserRole.DOCTOR),
+    userControllers.getAllUsers
+)
 
 // Get all doctors route
 userRouter.get("/doctors", userControllers.getAllDoctors)
@@ -33,6 +39,7 @@ userRouter.post(
 // Create doctor route
 userRouter.post(
     "/create-doctor",
+    authorize(UserRole.ADMIN),
     multerUploader.single("file"),
     validateSchema(userZodSchema.createDoctorZodSchema),
     imageUploader("doctor"),
@@ -42,6 +49,7 @@ userRouter.post(
 // Create admin route
 userRouter.post(
     "/create-admin",
+    authorize(UserRole.ADMIN),
     multerUploader.single("file"),
     validateSchema(userZodSchema.createAdminZodSchema),
     imageUploader("admin"),
