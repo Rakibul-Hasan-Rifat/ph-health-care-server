@@ -45,6 +45,8 @@ model Doctor {
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
+  schedules DoctorSchedule[]
+
   user User @relation(fields: [email], references: [email])
 }
 
