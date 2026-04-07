@@ -8,21 +8,12 @@ import { Prisma } from "../../../../prisma/generated/prisma/client";
 import { Gender, UserRole } from "../../../../prisma/generated/prisma/enums";
 import { AdminInterface, DoctorInterface, PatientInterface } from "./user.interface";
 
-type TOptions = {
-    page?: number,
-    limit?: number,
-    sortBy?: string,
-    sortOrder?: 'asc' | 'desc',
-}
-
-type TFilters = {}
-
 // Get all users service
 const getAllUsers = async (
-    { options, filters }: { options: TOptions, filters: Record<string, unknown> }
+    { options, filters }: { options: TOptions, filters: TFilters }
 ) => {
 
-    const { page, limit: take, skip, sortBy, sortOrder } = calculatePagination(options)
+    const { page, take, skip, sortBy, sortOrder } = calculatePagination(options)
     const { searchTerm, ...filtersData } = filters;
 
     let andConditions: Prisma.UserWhereInput[] = [];

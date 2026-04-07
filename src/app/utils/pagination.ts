@@ -1,13 +1,13 @@
 type PaginationOptions = {
     page?: number,
-    limit?: number,
+    take?: number,
     sortBy?: string,
     sortOrder?: "asc" | "desc"
 }
 
 type PaginationResult = {
     page: number,
-    limit: number,
+    take: number,
     skip: number,
     sortBy: string,
     sortOrder: "asc" | "desc"
@@ -15,13 +15,12 @@ type PaginationResult = {
 
 const calculatePagination = (options: PaginationOptions): PaginationResult => {
     const page = options.page || 1;
-    const limit = options.limit || 10;
-    const skip = (options.page as number - 1) * (options.limit as number);
+    const limit = options.take || 10;
+    const skip = (page - 1) * limit || 0;
     const sortBy = options.sortBy || "createdAt";
     const sortOrder = options.sortOrder || "desc";
-
     return {
-        page, limit, skip, sortBy, sortOrder
+        page, take: limit, skip, sortBy, sortOrder
     }
 }
 
